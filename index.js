@@ -130,7 +130,7 @@ function clearLocalStorage() {
         'Are you sure you want to clear all saved data from local storage? This action cannot be undone.',
         'Yes, clear storage',
         'Cancel',
-        'delete.png'
+        'https://raw.githubusercontent.com/skokivPr/code/refs/heads/main/tlo/delete.png'
     ).then((result) => {
         if (result.isConfirmed) {
             localStorage.removeItem('monaco_editor_state');
@@ -168,7 +168,7 @@ function loadFromLocalStorage() {
                     'Are you sure you want to load the saved state? All unsaved changes will be lost.',
                     'Yes, load saved state',
                     'Cancel',
-                    'file.png'
+                    'https://raw.githubusercontent.com/skokivPr/code/refs/heads/main/tlo/file.png'
                 ).then((result) => {
                     if (result.isConfirmed) {
                         loadStateFromStorage(state);
