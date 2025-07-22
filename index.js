@@ -243,7 +243,7 @@ function changeLanguage(language) {
             `Are you sure you want to change the language from ${currentLanguage.toUpperCase()} to ${language.toUpperCase()}? The code will remain but syntax highlighting will change.`,
             'Yes, change language',
             'Cancel',
-            'delete.png'
+            'https://raw.githubusercontent.com/skokivPr/code/refs/heads/main/tlo/delete.png'
         ).then((result) => {
             if (result.isConfirmed) {
                 monaco.editor.setModelLanguage(editor.getModel(), language);
@@ -309,7 +309,7 @@ async function formatCode() {
             'You are about to format a large code block. This action cannot be undone. Are you sure you want to continue?',
             'Yes, format code',
             'Cancel',
-            'format.png'
+            'https://raw.githubusercontent.com/skokivPr/code/refs/heads/main/tlo/format.png'
         ).then(async (result) => {
             if (result.isConfirmed) {
                 await performFormatting(code, parser);
@@ -438,7 +438,7 @@ function newFile() {
             'Are you sure you want to create a new file? All unsaved changes will be lost.',
             'Yes, create new file',
             'Cancel',
-            'file.png'
+            'https://raw.githubusercontent.com/skokivPr/code/refs/heads/main/tlo/file.png'
         ).then((result) => {
             if (result.isConfirmed) {
                 editor.setValue('');
@@ -462,7 +462,7 @@ function openFile() {
             'Are you sure you want to open a file? All unsaved changes will be lost.',
             'Yes, open file',
             'Cancel',
-            'folder.png'
+            'https://raw.githubusercontent.com/skokivPr/code/refs/heads/main/tlo/folder.png'
         ).then((result) => {
             if (result.isConfirmed) {
                 openFileDialog();
@@ -528,7 +528,7 @@ function saveFile() {
         `Are you sure you want to save the file as "${filename}"?`,
         'Yes, save file',
         'Cancel',
-        'file.png'
+        'https://raw.githubusercontent.com/skokivPr/code/refs/heads/main/tlo/file.png'
     ).then((result) => {
         if (result.isConfirmed) {
             const blob = new Blob([code], { type: 'text/plain;charset=utf-8' });
