@@ -81,7 +81,7 @@
 .footer-content {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+    gap: 10px;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
@@ -89,14 +89,12 @@
     overflow: hidden;
     transition: all 0.4s ease;
     opacity: 0;
-    transform: translateY(-10px);
 }
 
 .footer-content.expanded {
     max-height: 500px;
-    padding: 20px 20px 10px 20px;
+    padding: 20px 0px 10px 0px;
     opacity: 1;
-    transform: translateY(0);
     border-bottom: 1px solid var(--border-color);
 }
 
@@ -110,13 +108,7 @@
     gap: 8px;
 }
 
-.footer-section p {
-    margin: 0 0 10px 0;
-    font-size: 14px;
-    line-height: 1.4;
-    color: var(--text-color);
-    opacity: 0.8;
-}
+
 
 .footer-version {
     display: flex;
@@ -196,19 +188,7 @@
     animation: heartbeat 2s ease-in-out infinite;
 }
 
-@keyframes heartbeat {
-    0% {
-        transform: scale(1);
-    }
 
-    50% {
-        transform: scale(1.1);
-    }
-
-    100% {
-        transform: scale(1);
-    }
-}
 
 .footer-links {
     display: flex;
@@ -231,7 +211,6 @@
 .footer-link:hover {
     color: var(--primary-color);
     opacity: 1;
-    transform: translateX(4px);
 }
 
 .footer-bottom {
@@ -862,7 +841,6 @@ html {
 .swal2-confirm:hover {
     background-color: #e6730b !important;
     border-color: #e6730b !important;
-    transform: translateY(-1px) !important;
 }
 
 .swal2-cancel {
@@ -879,7 +857,6 @@ html {
 .swal2-cancel:hover {
     background-color: var(--accent-color) !important;
     border-color: var(--accent-color) !important;
-    transform: translateY(-1px) !important;
 }
 
 .swal2-icon.swal2-warning {
