@@ -226,10 +226,32 @@ function loadStateFromStorage(state) {
 function updatePreview() {
     const code = editor.getValue();
     const previewFrame = document.getElementById('preview');
-    const preview = previewFrame.contentDocument || previewFrame.contentWindow.document;
-    preview.open();
-    preview.write(code);
-    preview.close();
+
+    try {
+        // Completely reload the iframe to avoid variable redeclaration errors
+        previewFrame.src = 'about:blank';
+
+        // Wait a moment for the iframe to reload, then set the content
+        setTimeout(() => {
+            const preview = previewFrame.contentDocument || previewFrame.contentWindow.document;
+            preview.open();
+            preview.write(code);
+            preview.close();
+        }, 10);
+    } catch (error) {
+        console.error('Error updating preview:', error);
+
+        // Fallback: try direct write
+        try {
+            const preview = previewFrame.contentDocument || previewFrame.contentWindow.document;
+            preview.open();
+            preview.write(code);
+            preview.close();
+        } catch (fallbackError) {
+            console.error('Fallback preview update failed:', fallbackError);
+            updateFooterStatus('Preview update failed', 'exclamation-triangle');
+        }
+    }
 }
 
 function changeLanguage(language) {
