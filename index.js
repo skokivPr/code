@@ -1,4 +1,4 @@
-let editor;
+let editor; 
 
 // --- Initialize theme ---
 if (!document.documentElement.getAttribute('theme')) {
