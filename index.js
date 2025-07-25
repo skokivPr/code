@@ -1,4 +1,4 @@
-let editor; 
+let editor;
 
 // --- Initialize theme ---
 if (!document.documentElement.getAttribute('theme')) {
@@ -265,7 +265,7 @@ function changeLanguage(language) {
             `Are you sure you want to change the language from ${currentLanguage.toUpperCase()} to ${language.toUpperCase()}? The code will remain but syntax highlighting will change.`,
             'Yes, change language',
             'Cancel',
-            'https://raw.githubusercontent.com/skokivPr/code/refs/heads/main/tlo/delete.png'
+            'delete.png'
         ).then((result) => {
             if (result.isConfirmed) {
                 monaco.editor.setModelLanguage(editor.getModel(), language);
@@ -331,7 +331,7 @@ async function formatCode() {
             'You are about to format a large code block. This action cannot be undone. Are you sure you want to continue?',
             'Yes, format code',
             'Cancel',
-            'https://raw.githubusercontent.com/skokivPr/code/refs/heads/main/tlo/format.png'
+            'format.png'
         ).then(async (result) => {
             if (result.isConfirmed) {
                 await performFormatting(code, parser);
@@ -426,6 +426,14 @@ function copyCode() {
 
 // --- Confirmation Modal ---
 function showConfirmationModal(title, text, confirmText, cancelText = 'Cancel', backgroundImage = 'file.png') {
+    // Try multiple CDN sources for better reliability
+    const imageUrls = [
+        `https://cdn.jsdelivr.net/gh/skokivPr/code@skokivPr-patch-3/tlo/${backgroundImage}`,
+        `https://raw.githack.com/skokivPr/code/skokivPr-patch-3/tlo/${backgroundImage}`,
+        `https://rawcdn.githack.com/skokivPr/code/skokivPr-patch-3/tlo/${backgroundImage}`
+    ];
+    const primaryImageUrl = imageUrls[0];
+
     return Swal.fire({
         title: title,
         text: text,
@@ -438,7 +446,7 @@ function showConfirmationModal(title, text, confirmText, cancelText = 'Cancel', 
         reverseButtons: true,
         backdrop: `
             rgba(0,0,0,0.7)
-            url("tlo/${backgroundImage}")
+            url("${primaryImageUrl}")
             center center
             no-repeat
         `,
@@ -446,6 +454,44 @@ function showConfirmationModal(title, text, confirmText, cancelText = 'Cancel', 
             popup: 'swal-custom-popup',
             title: 'swal-custom-title',
             htmlContainer: 'swal-custom-text'
+        },
+        didOpen: () => {
+            // Progressive fallback system
+            let currentUrlIndex = 0;
+
+            const tryNextImage = () => {
+                if (currentUrlIndex < imageUrls.length) {
+                    const img = new Image();
+                    img.onload = () => {
+                        const backdrop = document.querySelector('.swal2-backdrop');
+                        if (backdrop) {
+                            backdrop.style.backgroundImage = `url("${imageUrls[currentUrlIndex]}")`;
+                        }
+                    };
+                    img.onerror = () => {
+                        currentUrlIndex++;
+                        if (currentUrlIndex < imageUrls.length) {
+                            tryNextImage();
+                        } else {
+                            // Final fallback to local
+                            const backdrop = document.querySelector('.swal2-backdrop');
+                            if (backdrop) {
+                                backdrop.style.backgroundImage = `url("tlo/${backgroundImage}")`;
+                            }
+                        }
+                    };
+                    img.src = imageUrls[currentUrlIndex];
+                } else {
+                    // Final fallback to local
+                    const backdrop = document.querySelector('.swal2-backdrop');
+                    if (backdrop) {
+                        backdrop.style.backgroundImage = `url("tlo/${backgroundImage}")`;
+                    }
+                }
+            };
+
+            // Start trying images
+            tryNextImage();
         }
     });
 }
@@ -460,7 +506,7 @@ function newFile() {
             'Are you sure you want to create a new file? All unsaved changes will be lost.',
             'Yes, create new file',
             'Cancel',
-            'https://raw.githubusercontent.com/skokivPr/code/refs/heads/main/tlo/file.png'
+            'file.png'
         ).then((result) => {
             if (result.isConfirmed) {
                 editor.setValue('');
@@ -484,7 +530,7 @@ function openFile() {
             'Are you sure you want to open a file? All unsaved changes will be lost.',
             'Yes, open file',
             'Cancel',
-            'https://raw.githubusercontent.com/skokivPr/code/refs/heads/main/tlo/folder.png'
+            'folder.png'
         ).then((result) => {
             if (result.isConfirmed) {
                 openFileDialog();
@@ -550,7 +596,7 @@ function saveFile() {
         `Are you sure you want to save the file as "${filename}"?`,
         'Yes, save file',
         'Cancel',
-        'https://raw.githubusercontent.com/skokivPr/code/refs/heads/main/tlo/file.png'
+        'file.png'
     ).then((result) => {
         if (result.isConfirmed) {
             const blob = new Blob([code], { type: 'text/plain;charset=utf-8' });
