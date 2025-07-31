@@ -60,6 +60,21 @@
     border: 3px solid #303030;
 }
 
+::selection {
+    background-color: var(--primary-color) !important;
+    color: var(--background-color) !important;
+}
+
+.editor-area {
+    height: 98vh;
+}
+
+.app-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
 /* Font Awesome icons hover effects */
 .toolbar-button:hover i,
 .my-btn:hover i,
@@ -81,7 +96,7 @@
 .footer-content {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
+    gap: 10px;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
@@ -89,14 +104,12 @@
     overflow: hidden;
     transition: all 0.4s ease;
     opacity: 0;
-    transform: translateY(-10px);
 }
 
 .footer-content.expanded {
     max-height: 500px;
-    padding: 20px 20px 10px 20px;
+    padding: 20px 0px 10px 0px;
     opacity: 1;
-    transform: translateY(0);
     border-bottom: 1px solid var(--border-color);
 }
 
@@ -110,13 +123,7 @@
     gap: 8px;
 }
 
-.footer-section p {
-    margin: 0 0 10px 0;
-    font-size: 14px;
-    line-height: 1.4;
-    color: var(--text-color);
-    opacity: 0.8;
-}
+
 
 .footer-version {
     display: flex;
@@ -196,19 +203,7 @@
     animation: heartbeat 2s ease-in-out infinite;
 }
 
-@keyframes heartbeat {
-    0% {
-        transform: scale(1);
-    }
 
-    50% {
-        transform: scale(1.1);
-    }
-
-    100% {
-        transform: scale(1);
-    }
-}
 
 .footer-links {
     display: flex;
@@ -231,7 +226,6 @@
 .footer-link:hover {
     color: var(--primary-color);
     opacity: 1;
-    transform: translateX(4px);
 }
 
 .footer-bottom {
@@ -316,10 +310,37 @@
     text-shadow: 0 0 10px rgba(var(--rgb-red), 0.8);
 }
 
+.status-run i {
+    color: rgb(var(--rgb-green), 1);
+    text-shadow: 0 0 10px rgba(var(--rgb-green), 0.8);
+    transition: all 0.3s ease;
+}
+
+.status-run:hover i {
+    transform: scale(1.1);
+    text-shadow: 0 0 15px rgba(var(--rgb-green), 1);
+}
+
+.status-stop i {
+    color: rgb(var(--rgb-red), 1);
+    text-shadow: 0 0 10px rgba(var(--rgb-red), 0.8);
+    transition: all 0.3s ease;
+}
+
+.status-stop:hover i {
+    transform: scale(1.1);
+    text-shadow: 0 0 15px rgba(var(--rgb-red), 1);
+}
+
 .status-indicator i.fa-spinner {
     animation: spin 1s linear infinite;
     color: var(--primary-color);
     font-size: 10px;
+}
+
+.status-run i.fa-spinner {
+    color: rgb(var(--rgb-green), 1);
+    text-shadow: 0 0 10px rgba(var(--rgb-green), 0.8);
 }
 
 @keyframes spin {
@@ -428,7 +449,30 @@ html {
 }
 
 .toolbar-section {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+}
+
+.toolbar-separator {
+    width: 30px;
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 8px 0;
+    opacity: 0.6;
+    border-radius: 0.5px;
+    transition: all 0.3s ease;
+}
+
+:root[theme="dark"] .toolbar-separator {
+    opacity: 0.25;
+    background-color: var(--accent-color);
+}
+
+.vertical-toolbar:hover .toolbar-separator {
+    opacity: 0.8;
+}
+
+:root[theme="dark"] .vertical-toolbar:hover .toolbar-separator {
+    opacity: 0.4;
 }
 
 .editor-area {
@@ -462,6 +506,165 @@ html {
 #editor {
     width: 100%;
     height: 100%;
+}
+
+/* Monaco Editor Line Highlighting */
+.monaco-editor .current-line {
+    background-color: rgba(var(--rgb-blue), 0.1) !important;
+}
+
+.monaco-editor .view-line {
+    position: relative;
+}
+
+/* Line numbers styling */
+.monaco-editor .margin .line-numbers {
+    color: var(--accent-color) !important;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.monaco-editor .margin .line-numbers.active-line-number {
+    color: var(--primary-color) !important;
+    opacity: 1;
+    font-weight: bold;
+}
+
+/* Current line highlight */
+.monaco-editor .current-line-exact {
+    background-color: rgba(var(--rgb-blue), 0.08) !important;
+    border: 1px solid rgba(var(--rgb-blue), 0.2) !important;
+    border-radius: 2px;
+}
+
+/* Indent guides */
+.monaco-editor .lines-content .cigr {
+    background: rgba(var(--rgb-blue), 0.15) !important;
+}
+
+.monaco-editor .lines-content .cigra {
+    background: rgba(var(--rgb-blue), 0.3) !important;
+}
+
+/* Bracket pair colorization */
+.monaco-editor .bracket-highlighting-0 {
+    color: rgb(var(--rgb-yellow)) !important;
+}
+
+.monaco-editor .bracket-highlighting-1 {
+    color: rgb(var(--rgb-green)) !important;
+}
+
+.monaco-editor .bracket-highlighting-2 {
+    color: rgb(var(--rgb-blue)) !important;
+}
+
+.monaco-editor .bracket-highlighting-3 {
+    color: rgb(var(--rgb-red)) !important;
+}
+
+/* Selection highlight */
+.monaco-editor .selected-text {
+    background-color: rgba(var(--rgb-blue), 0.2) !important;
+}
+
+/* Occurrence highlights */
+.monaco-editor .selectionHighlight {
+    background-color: rgba(var(--rgb-yellow), 0.3) !important;
+    border: 1px solid rgba(var(--rgb-yellow), 0.5) !important;
+}
+
+/* Dark mode adjustments */
+:root[theme="dark"] .monaco-editor .current-line-exact {
+    background-color: rgba(var(--rgb-blue), 0.15) !important;
+    border: 1px solid rgba(var(--rgb-blue), 0.3) !important;
+}
+
+:root[theme="dark"] .monaco-editor .selectionHighlight {
+    background-color: rgba(var(--rgb-yellow), 0.2) !important;
+    border: 1px solid rgba(var(--rgb-yellow), 0.4) !important;
+}
+
+/* Line hover effects */
+.monaco-editor .view-line:hover {
+    background-color: rgba(var(--rgb-blue), 0.05) !important;
+    transition: background-color 0.2s ease;
+}
+
+:root[theme="dark"] .monaco-editor .view-line:hover {
+    background-color: rgba(var(--rgb-blue), 0.08) !important;
+}
+
+/* Enhanced line numbers */
+.monaco-editor .margin:hover .line-numbers {
+    opacity: 1;
+}
+
+/* Cursor line animation */
+.monaco-editor .cursors-layer .cursor {
+    background: var(--primary-color) !important;
+    width: 2px !important;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50% {
+        opacity: 1;
+    }
+
+    51%, 100% {
+        opacity: 0.3;
+    }
+}
+
+/* Word wrap indicator */
+.monaco-editor .lines-content .cldr {
+    opacity: 0.3;
+    background: var(--accent-color) !important;
+}
+
+/* Folding controls */
+.monaco-editor .folding-decoration {
+    color: var(--primary-color) !important;
+    opacity: 0.7;
+}
+
+.monaco-editor .folding-decoration:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Error/Warning line highlights */
+.monaco-editor .squiggly-error {
+    background: url("data:image/svg+xml,%3csvg width='6' height='3' viewBox='0 0 6 3' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m0 3 l2 -2 l1 0 l2 2 l1 0' stroke='rgb(231, 76, 60)' fill='none' stroke-width='.7'/%3e%3c/svg%3e") repeat-x bottom left;
+}
+
+.monaco-editor .squiggly-warning {
+    background: url("data:image/svg+xml,%3csvg width='6' height='3' viewBox='0 0 6 3' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m0 3 l2 -2 l1 0 l2 2 l1 0' stroke='rgb(243, 156, 18)' fill='none' stroke-width='.7'/%3e%3c/svg%3e") repeat-x bottom left;
+}
+
+.monaco-editor .squiggly-info {
+    background: url("data:image/svg+xml,%3csvg width='6' height='3' viewBox='0 0 6 3' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m0 3 l2 -2 l1 0 l2 2 l1 0' stroke='rgb(52, 152, 219)' fill='none' stroke-width='.7'/%3e%3c/svg%3e") repeat-x bottom left;
+}
+
+/* Line with errors/warnings background */
+.monaco-editor .view-line.error-line {
+    background-color: rgba(var(--rgb-red), 0.05) !important;
+    border-left: 3px solid rgb(var(--rgb-red));
+}
+
+.monaco-editor .view-line.warning-line {
+    background-color: rgba(var(--rgb-yellow), 0.05) !important;
+    border-left: 3px solid rgb(var(--rgb-yellow));
+}
+
+/* Enhanced minimap */
+.monaco-editor .minimap .minimap-slider {
+    background: rgba(var(--rgb-blue), 0.2) !important;
+}
+
+.monaco-editor .minimap .minimap-slider:hover {
+    background: rgba(var(--rgb-blue), 0.3) !important;
 }
 
 #preview {
@@ -715,7 +918,7 @@ html {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 12px;
+    padding: 5px 5px;
     background-color: var(--quinary-color);
     border: 1px solid var(--border-color);
     border-radius: 0px;
@@ -732,7 +935,7 @@ html {
     font-weight: bold;
     color: var(--primary-color);
     background-color: var(--background-color);
-    padding: 2px 8px;
+    padding: 5px 5px;
     border-radius: 0px;
     border: 1px solid var(--border-color);
     font-size: 0.9rem;
@@ -834,6 +1037,117 @@ html {
     font-family: 'Share Tech Mono', monospace !important;
 }
 
+/* SweetAlert2 Default Popup Styling */
+div:where(.swal2-container) div:where(.swal2-popup) {
+    background-color: var(--background-color) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 0px !important;
+    color: var(--text-color) !important;
+    font-family: 'Share Tech Mono', monospace !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+}
+
+div:where(.swal2-container) div:where(.swal2-popup) .swal2-title {
+    color: var(--text-color) !important;
+    font-weight: 600 !important;
+    font-size: 18px !important;
+    font-family: 'Share Tech Mono', monospace !important;
+    margin-bottom: 10px !important;
+}
+
+div:where(.swal2-container) div:where(.swal2-popup) .swal2-html-container {
+    color: var(--text-color) !important;
+    opacity: 0.8 !important;
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    font-family: 'Share Tech Mono', monospace !important;
+}
+
+div:where(.swal2-container) div:where(.swal2-popup) .swal2-actions {
+    gap: 10px !important;
+    margin-top: 20px !important;
+}
+
+div:where(.swal2-container) div:where(.swal2-popup) .swal2-confirm {
+    background-color: var(--primary-color) !important;
+    border: 1px solid var(--primary-color) !important;
+    border-radius: 0px !important;
+    color: white !important;
+    font-family: 'Share Tech Mono', monospace !important;
+    font-size: 14px !important;
+    padding: 8px 16px !important;
+    transition: all 0.2s ease !important;
+}
+
+div:where(.swal2-container) div:where(.swal2-popup) .swal2-confirm:hover {
+    background-color: #e6730b !important;
+    border-color: #e6730b !important;
+}
+
+div:where(.swal2-container) div:where(.swal2-popup) .swal2-cancel {
+    background-color: var(--quaternary-color) !important;
+    border: 1px solid var(--quaternary-color) !important;
+    border-radius: 0px !important;
+    color: white !important;
+    font-family: 'Share Tech Mono', monospace !important;
+    font-size: 14px !important;
+    padding: 8px 16px !important;
+    transition: all 0.2s ease !important;
+}
+
+div:where(.swal2-container) div:where(.swal2-popup) .swal2-cancel:hover {
+    background-color: var(--accent-color) !important;
+    border-color: var(--accent-color) !important;
+}
+
+/* SweetAlert2 Icons */
+div:where(.swal2-container) div:where(.swal2-popup) .swal2-icon.swal2-warning {
+    border-color: var(--primary-color) !important;
+    color: var(--primary-color) !important;
+}
+
+div:where(.swal2-container) div:where(.swal2-popup) .swal2-icon.swal2-warning .swal2-icon-content {
+    color: var(--primary-color) !important;
+    font-weight: 600 !important;
+}
+
+div:where(.swal2-container) div:where(.swal2-popup) .swal2-icon.swal2-success .swal2-success-ring {
+    border-color: var(--primary-color) !important;
+}
+
+div:where(.swal2-container) div:where(.swal2-popup) .swal2-icon.swal2-success .swal2-success-fix {
+    background-color: var(--primary-color) !important;
+}
+
+div:where(.swal2-container) div:where(.swal2-popup) .swal2-icon.swal2-success .swal2-success-line-tip,
+div:where(.swal2-container) div:where(.swal2-popup) .swal2-icon.swal2-success .swal2-success-line-long {
+    background-color: var(--primary-color) !important;
+}
+
+div:where(.swal2-container) div:where(.swal2-popup) .swal2-icon.swal2-error {
+    border-color: rgb(var(--rgb-red)) !important;
+    color: rgb(var(--rgb-red)) !important;
+}
+
+div:where(.swal2-container) div:where(.swal2-popup) .swal2-icon.swal2-info {
+    border-color: rgb(var(--rgb-blue)) !important;
+    color: rgb(var(--rgb-blue)) !important;
+}
+
+/* Dark theme adjustments for SweetAlert2 */
+:root[theme="dark"] div:where(.swal2-container) div:where(.swal2-popup) {
+    background-color: var(--background-color) !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+:root[theme="dark"] div:where(.swal2-container) div:where(.swal2-popup) .swal2-title,
+:root[theme="dark"] div:where(.swal2-container) div:where(.swal2-popup) .swal2-html-container {
+    color: var(--text-color) !important;
+}
+
 .swal-custom-title {
     color: var(--text-color) !important;
     font-weight: 600 !important;
@@ -862,7 +1176,6 @@ html {
 .swal2-confirm:hover {
     background-color: #e6730b !important;
     border-color: #e6730b !important;
-    transform: translateY(-1px) !important;
 }
 
 .swal2-cancel {
@@ -879,7 +1192,6 @@ html {
 .swal2-cancel:hover {
     background-color: var(--accent-color) !important;
     border-color: var(--accent-color) !important;
-    transform: translateY(-1px) !important;
 }
 
 .swal2-icon.swal2-warning {
@@ -917,6 +1229,7 @@ html {
     font-family: 'Share Tech Mono', monospace !important;
     backdrop-filter: blur(10px) !important;
     -webkit-backdrop-filter: blur(10px) !important;
+    width: 300px !important;
 }
 
 .swal-success-title {
@@ -955,4 +1268,589 @@ html {
 :root[theme="dark"] .swal-success-title,
 :root[theme="dark"] .swal-success-text {
     color: var(--text-color) !important;
+}
+
+/* Rainbow CSV Styles */
+.monaco-editor .csv-column-0 {
+    background-color: rgba(231, 76, 60, 0.15) !important;
+    color: rgb(231, 76, 60) !important;
+    border-bottom: 1px solid rgba(231, 76, 60, 0.3);
+}
+
+.monaco-editor .csv-column-1 {
+    background-color: rgba(52, 152, 219, 0.15) !important;
+    color: rgb(52, 152, 219) !important;
+    border-bottom: 1px solid rgba(52, 152, 219, 0.3);
+}
+
+.monaco-editor .csv-column-2 {
+    background-color: rgba(39, 174, 96, 0.15) !important;
+    color: rgb(39, 174, 96) !important;
+    border-bottom: 1px solid rgba(39, 174, 96, 0.3);
+}
+
+.monaco-editor .csv-column-3 {
+    background-color: rgba(243, 156, 18, 0.15) !important;
+    color: rgb(243, 156, 18) !important;
+    border-bottom: 1px solid rgba(243, 156, 18, 0.3);
+}
+
+.monaco-editor .csv-column-4 {
+    background-color: rgba(155, 89, 182, 0.15) !important;
+    color: rgb(155, 89, 182) !important;
+    border-bottom: 1px solid rgba(155, 89, 182, 0.3);
+}
+
+.monaco-editor .csv-column-5 {
+    background-color: rgba(26, 188, 156, 0.15) !important;
+    color: rgb(26, 188, 156) !important;
+    border-bottom: 1px solid rgba(26, 188, 156, 0.3);
+}
+
+/* Color Decoration Styles */
+.monaco-editor .color-decoration-text {
+    position: relative;
+    border: 1px solid rgba(var(--rgb-blue), 0.3);
+    border-radius: 3px;
+    background: rgba(var(--rgb-blue), 0.1);
+    padding: 1px 2px;
+    margin: 0 1px;
+}
+
+.monaco-editor .color-decoration-text::before {
+    content: '';
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    background: currentColor;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.monaco-editor .color-glyph {
+    position: relative;
+}
+
+.monaco-editor .color-glyph::before {
+    content: '🎨';
+    position: absolute;
+    left: 2px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+/* Enhanced Bracket Guides */
+.monaco-editor .lines-content .cigr,
+.monaco-editor .lines-content .cigra {
+    transition: all 0.2s ease;
+}
+
+.monaco-editor .lines-content .cigr:hover,
+.monaco-editor .lines-content .cigra:hover {
+    background: rgba(var(--rgb-blue), 0.4) !important;
+    transform: scaleX(1.5);
+}
+
+/* Dark mode adjustments for new features */
+:root[theme="dark"] .monaco-editor .csv-column-0 {
+    background-color: rgba(231, 76, 60, 0.1) !important;
+    color: rgba(231, 76, 60, 0.9) !important;
+}
+
+:root[theme="dark"] .monaco-editor .csv-column-1 {
+    background-color: rgba(52, 152, 219, 0.1) !important;
+    color: rgba(52, 152, 219, 0.9) !important;
+}
+
+:root[theme="dark"] .monaco-editor .csv-column-2 {
+    background-color: rgba(39, 174, 96, 0.1) !important;
+    color: rgba(39, 174, 96, 0.9) !important;
+}
+
+:root[theme="dark"] .monaco-editor .csv-column-3 {
+    background-color: rgba(243, 156, 18, 0.1) !important;
+    color: rgba(243, 156, 18, 0.9) !important;
+}
+
+:root[theme="dark"] .monaco-editor .csv-column-4 {
+    background-color: rgba(155, 89, 182, 0.1) !important;
+    color: rgba(155, 89, 182, 0.9) !important;
+}
+
+:root[theme="dark"] .monaco-editor .csv-column-5 {
+    background-color: rgba(26, 188, 156, 0.1) !important;
+    color: rgba(26, 188, 156, 0.9) !important;
+}
+
+:root[theme="dark"] .monaco-editor .color-decoration-text {
+    background: rgba(var(--rgb-blue), 0.08);
+    border-color: rgba(var(--rgb-blue), 0.2);
+}
+
+/* Problems Panel Styles */
+.problems-popup {
+    background: var(--background-color) !important;
+    color: var(--text-color) !important;
+    border: 1px solid var(--border-color) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+}
+
+.problems-popup h3 {
+    color: var(--text-color) !important;
+    margin-bottom: 15px;
+    font-size: 18px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.problems-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.problem-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 0px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: var(--hover-color);
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
+}
+
+.problem-item:hover {
+    background: var(--secondary-color);
+    border-color: var(--primary-color);
+}
+
+.problem-icon {
+    margin-right: 10px;
+    font-size: 16px;
+    min-width: 20px;
+}
+
+.problem-message {
+    flex: 1;
+    color: var(--text-color);
+    font-weight: 500;
+    margin-right: 15px;
+}
+
+.problem-location {
+    color: var(--accent-color);
+    font-size: 12px;
+    margin-right: 10px;
+    min-width: 80px;
+    text-align: right;
+}
+
+.problem-source {
+    color: var(--primary-color);
+    font-size: 11px;
+    font-weight: bold;
+    background: rgba(var(--rgb-blue), 0.1);
+    padding: 2px 6px;
+    border-radius: 3px;
+    min-width: 60px;
+    text-align: center;
+}
+
+/* Enhanced Error Squiggles */
+.monaco-editor .squiggly-error {
+    background: url("data:image/svg+xml,%3csvg width='6' height='3' viewBox='0 0 6 3' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m0 3 l2 -2 l1 0 l2 2 l1 0' stroke='%23e74c3c' fill='none' stroke-width='1'/%3e%3c/svg%3e") repeat-x bottom left;
+    padding-bottom: 2px;
+}
+
+.monaco-editor .squiggly-warning {
+    background: url("data:image/svg+xml,%3csvg width='6' height='3' viewBox='0 0 6 3' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m0 3 l2 -2 l1 0 l2 2 l1 0' stroke='%23f39c12' fill='none' stroke-width='1'/%3e%3c/svg%3e") repeat-x bottom left;
+    padding-bottom: 2px;
+}
+
+.monaco-editor .squiggly-info {
+    background: url("data:image/svg+xml,%3csvg width='6' height='3' viewBox='0 0 6 3' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='m0 3 l2 -2 l1 0 l2 2 l1 0' stroke='%233498db' fill='none' stroke-width='1'/%3e%3c/svg%3e") repeat-x bottom left;
+    padding-bottom: 2px;
+}
+
+/* Syntax Validation Indicators */
+.monaco-editor .margin-view-overlays .line-numbers.syntax-error {
+    background: linear-gradient(90deg, rgba(var(--rgb-red), 0.2), transparent) !important;
+    color: rgb(var(--rgb-red)) !important;
+    font-weight: bold !important;
+}
+
+.monaco-editor .margin-view-overlays .line-numbers.syntax-warning {
+    background: linear-gradient(90deg, rgba(var(--rgb-yellow), 0.2), transparent) !important;
+    color: rgb(var(--rgb-yellow)) !important;
+    font-weight: bold !important;
+}
+
+.monaco-editor .margin-view-overlays .line-numbers.syntax-info {
+    background: linear-gradient(90deg, rgba(var(--rgb-blue), 0.2), transparent) !important;
+    color: rgb(var(--rgb-blue)) !important;
+}
+
+/* Enhanced hover tooltips */
+.monaco-editor .monaco-hover {
+    background: var(--background-color) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-color) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+}
+
+.monaco-editor .monaco-hover .hover-contents {
+    padding: 8px 12px !important;
+    font-family: 'Share Tech Mono', monospace !important;
+}
+
+/* Language Service Indicators */
+.monaco-editor .suggest-widget {
+    background: var(--background-color) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-color) !important;
+}
+
+.monaco-editor .suggest-widget .monaco-list .monaco-list-row {
+    background: var(--background-color) !important;
+    color: var(--text-color) !important;
+}
+
+.monaco-editor .suggest-widget .monaco-list .monaco-list-row.focused {
+    background: var(--secondary-color) !important;
+}
+
+/* Dark mode adjustments for problems panel */
+:root[theme="dark"] .problems-popup {
+    background: rgba(26, 26, 26, 0.95) !important;
+}
+
+:root[theme="dark"] .problem-item {
+    background: rgba(40, 40, 40, 0.8);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+:root[theme="dark"] .problem-item:hover {
+    background: rgba(60, 60, 60, 0.9);
+    border-color: var(--primary-color);
+}
+
+:root[theme="dark"] .problem-source {
+    background: rgba(var(--rgb-blue), 0.2);
+}
+
+/* Enhanced Bracket Pairs Guides */
+.monaco-editor .bracket-guides {
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.monaco-editor .bracket-guides:hover {
+    opacity: 1;
+}
+
+.monaco-editor .bracket-guide-0 {
+    border-left: 1px solid rgba(var(--rgb-blue), 0.4) !important;
+}
+
+.monaco-editor .bracket-guide-1 {
+    border-left: 1px solid rgba(var(--rgb-green), 0.4) !important;
+}
+
+.monaco-editor .bracket-guide-2 {
+    border-left: 1px solid rgba(var(--rgb-yellow), 0.4) !important;
+}
+
+.monaco-editor .bracket-guide-3 {
+    border-left: 1px solid rgba(var(--rgb-red), 0.4) !important;
+}
+
+.monaco-editor .bracket-guide-4 {
+    border-left: 1px solid rgba(var(--rgb-purple), 0.4) !important;
+}
+
+.monaco-editor .bracket-guide-5 {
+    border-left: 1px solid rgba(var(--rgb-orange), 0.4) !important;
+}
+
+.monaco-editor .bracket-guide-active {
+    border-left-width: 2px !important;
+    opacity: 1 !important;
+    animation: bracket-pulse 1s ease-in-out infinite alternate;
+}
+
+@keyframes bracket-pulse {
+    0% {
+        opacity: 0.6;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Indentation Guides Enhancement */
+.monaco-editor .lines-content .core-guide {
+    border-left: 1px dotted rgba(var(--rgb-gray), 0.3) !important;
+    transition: border-color 0.3s ease;
+}
+
+.monaco-editor .lines-content .core-guide:hover {
+    border-left-color: rgba(var(--rgb-blue), 0.5) !important;
+}
+
+.monaco-editor .lines-content .core-guide-indent {
+    border-left: 1px solid rgba(var(--rgb-blue), 0.2) !important;
+}
+
+.monaco-editor .lines-content .core-guide-indent.core-guide-indent-active {
+    border-left: 2px solid rgba(var(--rgb-blue), 0.6) !important;
+}
+
+/* Dark mode adjustments for guides */
+:root[theme="dark"] .monaco-editor .bracket-guide-0 {
+    border-left-color: rgba(var(--rgb-blue), 0.6) !important;
+}
+
+:root[theme="dark"] .monaco-editor .bracket-guide-1 {
+    border-left-color: rgba(var(--rgb-green), 0.6) !important;
+}
+
+:root[theme="dark"] .monaco-editor .bracket-guide-2 {
+    border-left-color: rgba(var(--rgb-yellow), 0.6) !important;
+}
+
+:root[theme="dark"] .monaco-editor .bracket-guide-3 {
+    border-left-color: rgba(var(--rgb-red), 0.6) !important;
+}
+
+:root[theme="dark"] .monaco-editor .bracket-guide-4 {
+    border-left-color: rgba(var(--rgb-purple), 0.6) !important;
+}
+
+:root[theme="dark"] .monaco-editor .bracket-guide-5 {
+    border-left-color: rgba(var(--rgb-orange), 0.6) !important;
+}
+
+:root[theme="dark"] .monaco-editor .lines-content .core-guide {
+    border-left-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+:root[theme="dark"] .monaco-editor .lines-content .core-guide:hover {
+    border-left-color: rgba(var(--rgb-blue), 0.7) !important;
+}
+
+/* Custom Syntax Color Enhancements */
+.monaco-editor .token.keyword {
+    font-weight: bold !important;
+}
+
+.monaco-editor .token.string {
+    font-style: normal !important;
+}
+
+.monaco-editor .token.comment {
+    font-style: italic !important;
+    opacity: 0.8;
+}
+
+.monaco-editor .token.number {
+    font-weight: 500 !important;
+}
+
+.monaco-editor .token.function {
+    font-weight: bold !important;
+}
+
+.monaco-editor .token.type {
+    font-weight: bold !important;
+}
+
+/* Enhanced token highlighting on hover */
+.monaco-editor .view-line .token:hover {
+    text-shadow: 0 0 1px currentColor;
+    transition: text-shadow 0.2s ease;
+}
+
+/* Vibrant theme specific enhancements */
+body[data-theme="vibrant"] .monaco-editor .token.keyword {
+    text-shadow: 0 0 2px rgba(215, 58, 73, 0.3);
+}
+
+body[data-theme="vibrant"] .monaco-editor .token.string {
+    text-shadow: 0 0 2px rgba(3, 47, 98, 0.2);
+}
+
+body[data-theme="vibrant"] .monaco-editor .token.function {
+    text-shadow: 0 0 2px rgba(111, 66, 193, 0.3);
+}
+
+/* Neon theme specific enhancements */
+body[data-theme="neon"] .monaco-editor .token.keyword {
+    text-shadow: 0 0 5px #ff0080, 0 0 10px #ff0080;
+    animation: neon-pulse 2s ease-in-out infinite alternate;
+}
+
+body[data-theme="neon"] .monaco-editor .token.string {
+    text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+}
+
+body[data-theme="neon"] .monaco-editor .token.function {
+    text-shadow: 0 0 5px #ffff00, 0 0 10px #ffff00;
+}
+
+body[data-theme="neon"] .monaco-editor .token.number {
+    text-shadow: 0 0 5px #0080ff, 0 0 10px #0080ff;
+}
+
+@keyframes neon-pulse {
+    0% {
+        text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+    }
+
+    100% {
+        text-shadow: 0 0 8px currentColor, 0 0 15px currentColor, 0 0 20px currentColor;
+    }
+}
+
+/* Rainbow theme specific enhancements */
+body[data-theme="rainbow"] .monaco-editor .token {
+    transition: all 0.3s ease;
+}
+
+body[data-theme="rainbow"] .monaco-editor .token:hover {
+    transform: scale(1.05);
+    text-shadow: 0 0 3px currentColor;
+}
+
+/* Color scheme indicator in footer */
+.footer-btn[title*="Color"] {
+    position: relative;
+}
+
+.footer-btn[title*="Color"]::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 2px;
+    background: linear-gradient(90deg,
+            #ff0000 0%,
+            #ff8000 16.66%,
+            #ffff00 33.33%,
+            #00ff00 50%,
+            #0000ff 66.66%,
+            #8000ff 83.33%,
+            #ff00ff 100%);
+    border-radius: 1px;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.footer-btn[title*="Color"]:hover::after {
+    opacity: 1;
+}
+
+/* Syntax color scheme status indicator */
+.syntax-color-indicator {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+.syntax-color-indicator.vibrant {
+    background: linear-gradient(45deg, #d73a49, #6f42c1);
+}
+
+.syntax-color-indicator.neon {
+    background: #ff0080;
+    box-shadow: 0 0 10px #ff0080;
+    animation: neon-pulse 2s ease-in-out infinite alternate;
+}
+
+.syntax-color-indicator.rainbow {
+    background: linear-gradient(45deg, #ff0000, #ff8000, #ffff00, #00ff00, #0000ff, #8000ff);
+    animation: rainbow-rotate 3s linear infinite;
+}
+
+.syntax-color-indicator.default {
+    background: var(--accent-color);
+}
+
+@keyframes rainbow-rotate {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+
+.monaco-editor .mtk2 {
+    /* Keywords */
+    font-weight: bold !important;
+}
+
+
+.monaco-editor .mtk4 {
+    /* Numbers */
+    font-weight: 500 !important;
+}
+
+.monaco-editor .mtk5 {
+    /* Comments */
+    font-style: italic !important;
+    opacity: 0.8;
+}
+
+.monaco-editor .mtk6 {
+    /* Functions */
+    font-weight: bold !important;
+}
+
+
+
+.monaco-editor .mtk8 {
+    /* Types */
+    font-weight: bold !important;
+}
+
+/* Enhanced selection highlighting for colored syntax */
+.monaco-editor .selected-text {
+    background: rgba(var(--rgb-blue), 0.2) !important;
+    border-radius: 2px;
+}
+
+:root[theme="dark"] .monaco-editor .selected-text {
+    background: rgba(var(--rgb-blue), 0.3) !important;
+}
+
+/* Custom scrollbar for better color visibility */
+.monaco-editor .decorationsOverviewRuler {
+    background: var(--hover-color) !important;
+}
+
+.monaco-editor .overview-ruler-decoration {
+    opacity: 0.8;
+    border-radius: 1px;
 }
